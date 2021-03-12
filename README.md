@@ -129,6 +129,15 @@ library( "genefilter" )
 ```
 ![PCA plot](/Figures/PCA_plot.png)
 
+Differential Expression Gene Heatmap:
+
+```
+topVarGenes <- head( order( rowVars( assay(rld) ), decreasing=TRUE ), 35 )
+heatmap.2( assay(rld)[ topVarGenes, ], scale="row", trace="none", dendrogram="column", col = colorRampPalette( rev(brewer.pal(9, "RdBu")) )(255))
+```
+
+![Differential Expression Gene Heatmap](/Figures/DEG_heatmap.png)
+
 Volcano Plot:
 
 ```
