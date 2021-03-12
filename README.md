@@ -54,11 +54,13 @@ colnames(countdata) = temp
 
 ```
 
-Then we can generate the DESeq Matrix using the following code block.
+Then we can check that the sample info names from the shortRNAlist1.txt file and the formatted sample names in the data frame are the same, and generate the DESeq Matrix using the following code block.
 
 ```
+#check that the columns are the same
 cbind(temp,sampleInfo$FullSampleName,temp == sampleInfo$FullSampleName)
 
+#Generate the DESeq Matrix
 dds = DESeqDataSetFromMatrix(countData=countdata, colData=sampleInfo, design=~TissueCode)
 dds <- DESeq(dds)
 res <- results( dds )
@@ -67,29 +69,40 @@ res
 
 Then, we make the different plots:
 
-MA plot and dispersion plot:
+MA plot, dispersion, and p-value histogram plots:
 
 ```
 #This step is to remove the "Error in plot.new() :  figure margins too large" Error
 par(mar = rep(2, 4))
 
+#MA plot
 plotMA( res, ylim = c(-1, 1) )
+
+#Dispersion plot
 plotDispEsts( dds )
-hist( res$pvalue, breaks=20, col="grey" )
-rld = rlog( dds )
-head( assay(rld) )
-sampleDists = dist( t( assay(rld) ) )
-sampleDistMatrix = as.matrix( sampleDists )
-rownames(sampleDistMatrix) = rld$TissueCode
-colnames(sampleDistMatrix) = NULL
-library( "gplots" )
-library( "RColorBrewer" )
+
+#Histogram
+hist( res$pvalue, breaks=20, col="blue" )
 ```
 
 Distance matrix heatmap:
 
 ```
+#log transform
+rld = rlog( dds )
+head( assay(rld) )
+
+#create distance matrix
+sampleDists = dist( t( assay(rld) ) )
+sampleDistMatrix = as.matrix( sampleDists )
+rownames(sampleDistMatrix) = rld$TissueCode
+colnames(sampleDistMatrix) = NULL
+
+
+
 #generate distance matrix heatmap
+library( "gplots" )
+library( "RColorBrewer" )
 colours = colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
 heatmap.2( sampleDistMatrix, trace="none", col=colours)
 ```
