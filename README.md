@@ -95,7 +95,7 @@ P_Value_Histogram:
 #Histogram
 hist( res$pvalue, breaks=20, col="blue" )
 ```
-![P Value Histogram](/Figiures/p_value_histogram.png)
+![P Value Histogram](/Figures/p_value_histogram.png)
 
 Distance matrix heatmap:
 
