@@ -1,5 +1,6 @@
 # week_9
 
+## RNA Seq
 
 The subsample of RNA_seq files used in the sample data for analysis was the first 96 Paired end read files, corresponding to 48 total samples. We moved these files into the /subsamp directory within the RNA_seq directory. We can use the following code to give a list of all the subsampled fastq sample names to use in the DEseq2 pipeline.
 While in the folder with the read fastq files we can do:
