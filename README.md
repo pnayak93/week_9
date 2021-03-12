@@ -87,7 +87,7 @@ Gene Dispersion plot:
 #Dispersion plot
 plotDispEsts( dds )
 ```
-![Gene Dispersion Plot](/Figures/Dispersion_plot.png)
+![Gene Dispersion Plot](/Figures/Dispersion_Plot.png)
 
 P_Value_Histogram:
 
