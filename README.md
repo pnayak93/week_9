@@ -69,7 +69,7 @@ res
 
 Then, we make the different plots:
 
-MA plot, dispersion, and p-value histogram plots:
+MA plot:
 
 ```
 #This step is to remove the "Error in plot.new() :  figure margins too large" Error
@@ -77,13 +77,25 @@ par(mar = rep(2, 4))
 
 #MA plot
 plotMA( res, ylim = c(-1, 1) )
+```
 
+![MA Plot](/Figures/MAPlot.png)
+
+Gene Dispersion plot:
+
+```
 #Dispersion plot
 plotDispEsts( dds )
+```
+![Gene Dispersion Plot](/Figures/Dispersion_plot.png)
 
+P_Value_Histogram:
+
+```
 #Histogram
 hist( res$pvalue, breaks=20, col="blue" )
 ```
+![P Value Histogram](/Figiures/p_value_histogram.png)
 
 Distance matrix heatmap:
 
@@ -106,6 +118,7 @@ library( "RColorBrewer" )
 colours = colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
 heatmap.2( sampleDistMatrix, trace="none", col=colours)
 ```
+![Distance Heatmap](/Figures/distance_heatmap.png)
 
 PCA plot by tissue type:
 
@@ -114,6 +127,7 @@ PCA plot by tissue type:
 print( plotPCA( rld, intgroup = "TissueCode"))
 library( "genefilter" )
 ```
+![PCA plot](/Figures/PCA_plot.png)
 
 Volcano Plot:
 
@@ -129,3 +143,4 @@ abline(v=0)
 abline(v=c(-1,1), col="brown")
 abline(h=-log10(alpha), col="brown")
 ```
+![Volcano Plot](/Figures/Volcano_plot.png)
