@@ -154,3 +154,56 @@ abline(v=c(-1,1), col="brown")
 abline(h=-log10(alpha), col="brown")
 ```
 ![Volcano Plot](/Figures/Volcano_plot.png)
+
+
+# ATAC Seq
+
+To convert aligned bam files into bigwig files for use on ucsc genome browser tracks etc, we can use the following bash script (bigwigconvert.sh) and run as slurm job on hpc3
+assuming the file is in the same folder as all the RG.bam files created in prior steps.
+
+I first created an output directory using `mkdir bed` and then run the job using `sbatch bigwigconvert.sh`
+
+It is not parallelized, but the job runs fast enough without parallelization.
+
+```
+#!/bin/bash
+#SBATCH --job-name=bigwigconv      ## Name of the job.
+#SBATCH -A ecoevo283         ## account to charge
+#SBATCH -p standard          ## partition/queue name
+#SBATCH --array=1         ## number of tasks to launch, given hint below wc -l $file is helpful
+#SBATCH --cpus-per-task=12    ## number of cores the job needs, can the
+
+
+module load bwa/0.7.17
+module load samtools/1.10
+module load bcftools/1.10.2
+module load python/3.8.0
+module load java/1.8.0
+module load gatk/4.1.9.0
+module load picard-tools/1.87
+module load bamtools/2.5.1        # bamtools merge is useful
+module load freebayes/1.3.2       # fasta_generate_regions.py is useful
+module load vcftools/0.1.16
+module load ucsc-tools/v393
+module load bedtools2
+
+ref=/data/class/ecoevo283/pnayak/seq_symlinks/ref/dmel-all-chromosome-r6.13.fasta
+ATACfiles=/data/class/ecoevo283/pnayak/seq_symlinks/ATACseq/bam
+ATACoutput=/data/class/ecoevo283/pnayak/seq_symlinks/ATACseq/bam/bed
+
+cat $ref.fai | head -n 7 | awk '{printf("%s\t0\t%s\n",$1,$2)}' > $ATACoutput/major.bed
+
+for i in *.RG.bam;
+do
+mybam=$i
+name='echo $i | cut -b 11-17'
+samtools view -b -L $ATACoutput/major.bed $mybam > ${ATACoutput}/$mybam.maj
+Nreads=`samtools view -c -F 4 ${ATACoutput}/$mybam.maj`
+Scale=`echo "1.0/($Nreads/1000000)" | bc -l`
+samtools view -b ${ATACoutput}/$mybam.maj | genomeCoverageBed -bg -scale $Scale -ibam - > $ATACoutput/$mybam.coverage
+bedSort $ATACoutput/$mybam.coverage $ATACoutput/$mybam.sort.coverage
+bedGraphToBigWig $ATACoutput/$mybam.sort.coverage $ref.fai $ATACoutput/$mybam.bw
+done
+
+```
+
