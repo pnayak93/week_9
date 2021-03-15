@@ -213,10 +213,10 @@ Then, we can use WinSCP to transfer the bigwig (.bw) files to the desktop so the
 
 After upload to Cyverse, we can generate links and use those links to upload the bigwig files as custom tracks to the UCSC genome browser, as shown below:
 
-![UCSC genome browser bigwig upload](/ATACseq_genome_browser/genome_browser_upload.png)
+![UCSC genome browser bigwig upload](/ATACseq_genome_browser/genome_browser_upload.PNG)
 
 Then, moving back to the genome browser, we can change the track representation from "dense" to "full" to visualize the read peaks on genomic regions:
 
-![UCSC genome browser ATACseq peaks](/ATACseq_genome_browser/genome_browser_peaks.png)
+![UCSC genome browser ATACseq peaks](/ATACseq_genome_browser/genome_browser_peaks.PNG)
 
 
