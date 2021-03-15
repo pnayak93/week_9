@@ -209,7 +209,7 @@ done
 
 Then, we can use WinSCP to transfer the bigwig (.bw) files to the desktop so they can be uploaded to Cyverse Discovery Environment, as shown below:
 
-![Cyverse Discovery Environment Bigwig File Upload](/ATACseq_genome_browser/Cyverse_upload.png)
+![Cyverse Discovery Environment Bigwig File Upload](/ATACseq_genome_browser/Cyverse_upload.PNG)
 
 After upload to Cyverse, we can generate links and use those links to upload the bigwig files as custom tracks to the UCSC genome browser, as shown below:
 
