@@ -77,7 +77,7 @@ MA plot:
 #par(mar = rep(2, 4))
 
 #MA plot
-plotMA( res, ylim = c(-1, 1) )
+plotMA( res, ylim = c(-1, 1), xlab="mean of normalized counts", ylab="log fold change" )
 ```
 
 ![MA Plot](/Figures/MAplot.png)
