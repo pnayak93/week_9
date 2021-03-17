@@ -73,8 +73,8 @@ Then, we make the different plots:
 MA plot:
 
 ```
-#This step is to remove the "Error in plot.new() :  figure margins too large" Error
-par(mar = rep(2, 4))
+#This step is to remove the "Error in plot.new() :  figure margins too large" Error when it occurs
+#par(mar = rep(2, 4))
 
 #MA plot
 plotMA( res, ylim = c(-1, 1) )
