@@ -80,7 +80,7 @@ MA plot:
 plotMA( res, ylim = c(-1, 1) )
 ```
 
-![MA Plot](/Figurs/MAPlot.png)
+![MA Plot](/Figures/MAPlot.png)
 
 Gene Dispersion plot:
 
